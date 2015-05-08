@@ -1,0 +1,110 @@
+﻿<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<script type="text/javascript">
+			<!--
+				// 遅いし計算順が考慮されていないため未完成
+				function test() {
+					const INPUTS = 20; // 使用するインプットの数(<=20)
+					const RESULT = 100; // 解とする値
+					
+					var array = new Array (INPUTS);
+					// インプット取得
+					for (var i = 0; i < INPUTS; i ++) {
+						array[i] = parseInt (document.getElementById("text" + i).value, 10);
+					}
+					
+					var res = "no result";
+					
+					// 四則演算総当り (0:+, 1:-, 2:*, 3:/)
+					var max = Math.pow (4, INPUTS - 1) - 1; // 総当り個数
+					for (var i = 0; i < max; i ++) {
+					//for (var i = 0; i < 100; i ++) { // 時間がかかるためテスト用
+						// ゼロ埋めのための文字列作成
+						var zero = "";
+						for (var z = 0; z < INPUTS - 1; z ++) {
+							zero += "0"; // 0000000000000...
+						}
+						var op = ("zero" + i.toString (4)).slice (-INPUTS + 1); // 演算子の列(各桁が0~3の文字列)
+						// 左から計算
+						var temp = array[0]; // 計算途中の値
+						for (var j = 0; j < INPUTS; j ++) {
+							switch (parseInt (op.charAt(j), 10)) {
+								case 0:
+									temp = temp + array[j + 1];
+									break;
+								case 1:
+									temp = temp - array[j + 1];
+									break;
+								case 2:
+									temp = temp * array[j + 1];
+									break;
+								case 3:
+									// ゼロで割る場合は0とする
+									if (array[j + 1] == 0) {
+										temp = 0;
+									} else {
+										temp = temp / array[j + 1];
+									}
+									break;
+							}
+						}
+						
+						// 解が見つかった
+						if (temp == RESULT) {
+							res = "" + array[0];
+							// 解の文字列生成
+							for (var j = 0; j < INPUTS; j ++) {
+								switch (parseInt (op.charAt(j), 10)) {
+									case 0:
+										res = res + " + " + array[j + 1];
+										break;
+									case 1:
+										res = res + " - " + array[j + 1];
+										break;
+									case 2:
+										res = res + " * " + array[j + 1];
+										break;
+									case 3:
+										res = res + " / " + array[j + 1];
+										break;
+								
+								}
+							}
+							// ループ終了
+							break;
+						}
+					}
+					
+					alert (res);
+				}
+			-->
+		</script>
+	</head>
+	<body>
+		<form id="form">
+			00: <input type="number" id="text0" value="0"><br>
+			01: <input type="number" id="text1" value="0"><br>
+			02: <input type="number" id="text2" value="0"><br>
+			03: <input type="number" id="text3" value="0"><br>
+			04: <input type="number" id="text4" value="0"><br>
+			05: <input type="number" id="text5" value="0"><br>
+			06: <input type="number" id="text6" value="0"><br>
+			07: <input type="number" id="text7" value="0"><br>
+			08: <input type="number" id="text8" value="0"><br>
+			09: <input type="number" id="text9" value="0"><br>
+			10: <input type="number" id="text10" value="0"><br>
+			11: <input type="number" id="text11" value="0"><br>
+			12: <input type="number" id="text12" value="0"><br>
+			13: <input type="number" id="text13" value="0"><br>
+			14: <input type="number" id="text14" value="0"><br>
+			15: <input type="number" id="text15" value="0"><br>
+			16: <input type="number" id="text16" value="0"><br>
+			17: <input type="number" id="text17" value="0"><br>
+			18: <input type="number" id="text18" value="0"><br>
+			19: <input type="number" id="text19" value="0"><br>
+
+			<input type="button" value="計算" onclick="test()">
+		</form>
+	</body>
+</html>
